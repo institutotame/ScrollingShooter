@@ -20,9 +20,12 @@ class GameState(val gameStarter: GameStarter, val context : Context) {
 
     private val mEditor : SharedPreferences.Editor
 
-    private var mScore : Int = 0
-    private var mHighScore : Int
-    private var mNumShips : Int = 0
+    var mScore : Int = 0
+        private set
+    var mHighScore : Int
+        private set
+    var mNumShips : Int = 0
+        private set
 
     init {
         val prefs = context.getSharedPreferences("HiScore", Context.MODE_PRIVATE)
