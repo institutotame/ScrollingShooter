@@ -23,6 +23,8 @@ class GameEngine(context : Context, size : Point) : SurfaceView(context), GameSt
     val mUIController = UIController(this)
     val mParticleSystem = ParticleSystem()
 
+    val mPhysicsEngine = PhysicsEngine()
+
     init {
         mParticleSystem.init(1000)
     }
@@ -35,6 +37,9 @@ class GameEngine(context : Context, size : Point) : SurfaceView(context), GameSt
 
                 if(!mGameState.mPaused){
                     //Update all game objects here
+                    if(mPhysicsEngine.update(mFPS, mParticleSystem)){
+                        deSpawnwReSpawn()
+                    }
                 }
                 //Draw all the game objects here
                 //in a new way
