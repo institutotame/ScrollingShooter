@@ -2,19 +2,30 @@ package com.atinem.scrollingshooter
 
 import android.content.Context
 import android.graphics.Point
+import android.graphics.PointF
+import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.SurfaceView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class GameEngine(context : Context, size : Point) : SurfaceView(context), GameStarter {
+class GameEngine(context : Context, size : Point) : SurfaceView(context), GameStarter, GameEngineBroadcaster {
     private var mFPS : Long = 0
     private var job : Job? = null
     private val mGameState = GameState(this, context)
     private val mSoundEngine = SoundEngine(context)
     private val mHUD = HUD(size)
     private val mRenderer = Renderer(this)
+
+    private val inputObserver = mutableListOf<InputObserver>()
+
+    val mUIController = UIController(this)
+    val mParticleSystem = ParticleSystem()
+
+    init {
+        mParticleSystem.init(1000)
+    }
 
 
     fun runJob(){
@@ -52,7 +63,12 @@ class GameEngine(context : Context, size : Point) : SurfaceView(context), GameSt
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         //Handle the player's input here
 
-        mSoundEngine.playShoot()
+        for(observer in inputObserver){
+            observer.handleInput(event, mGameState, mHUD.controls)
+        }
+
+        // Temporary test for particle system
+        mParticleSystem.emitParticles(PointF(500f,500f))
 
         return super.onTouchEvent(event)
     }
@@ -60,5 +76,9 @@ class GameEngine(context : Context, size : Point) : SurfaceView(context), GameSt
     override fun deSpawnwReSpawn() {
         // Eventually this will despawn
         // and then respawn all the game objects
+    }
+
+    override fun addObserver(observer: InputObserver) {
+        inputObserver.add(observer)
     }
 }
