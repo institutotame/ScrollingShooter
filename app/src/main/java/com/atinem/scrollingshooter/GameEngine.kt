@@ -6,11 +6,13 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.SurfaceView
+import com.atinem.scrollingshooter.components.PlayerLaserSpawner
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class GameEngine(context : Context, size : Point) : SurfaceView(context), GameStarter, GameEngineBroadcaster {
+class GameEngine(context : Context, size : Point) : SurfaceView(context), GameStarter, GameEngineBroadcaster, PlayerLaserSpawner {
+
     private var mFPS : Long = 0
     private var job : Job? = null
     private val mGameState = GameState(this, context)
@@ -85,5 +87,9 @@ class GameEngine(context : Context, size : Point) : SurfaceView(context), GameSt
 
     override fun addObserver(observer: InputObserver) {
         inputObserver.add(observer)
+    }
+
+    override fun spawnPlayerLaser(transform: Transform): Boolean {
+        return false
     }
 }
