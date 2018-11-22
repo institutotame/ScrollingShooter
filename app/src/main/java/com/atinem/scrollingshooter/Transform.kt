@@ -3,7 +3,7 @@ package com.atinem.scrollingshooter
 import android.graphics.PointF
 import android.graphics.RectF
 
-class Transform(speed : Float, objectWidth : Float, objectHeight : Float, startingLocation : PointF, val screenSize : PointF) {
+class Transform(speed : Float, objectWidth : Float, objectHeight : Float, startingLocation : PointF, screenSize : PointF) {
 
 
 
