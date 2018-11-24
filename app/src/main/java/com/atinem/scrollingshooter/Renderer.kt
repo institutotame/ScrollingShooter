@@ -11,20 +11,26 @@ class Renderer(surfaceView : SurfaceView) {
     private val mSurfaceHolder : SurfaceHolder = surfaceView.holder
     private val mPaint = Paint()
 
-    fun draw(gameState: GameState, hud: HUD){
+    fun draw(objects: List<GameObject>, gameState: GameState, hud: HUD, particleSystem: ParticleSystem){
         if(mSurfaceHolder.surface.isValid){
             val canvas = mSurfaceHolder.lockCanvas()
             canvas.drawColor(Color.argb(255,0,0,0))
 
             if(gameState.mDrawing){
-                // Draw all game objects here
+                for(gameObject in objects){
+                    if(gameObject.isActive){
+                        gameObject.draw(canvas,mPaint)
+                    }
+                }
             }
 
             if(gameState.mGameOver){
-                // Draw a background graphic here
+                objects[Level.BACKGROUND_INDEX].draw(canvas,mPaint)
             }
 
-            // Draw a particle explosion system here
+            if(particleSystem.mIsRunning){
+                particleSystem.draw(canvas,mPaint)
+            }
 
             hud.draw(canvas,mPaint,gameState)
 

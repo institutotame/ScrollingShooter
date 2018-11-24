@@ -13,11 +13,11 @@ class BackgroundGraphicsComponent : GraphicsComponent {
     override fun initialize(context: Context, spec: ObjectSpec, screenSize: PointF) {
         val resID = context.resources.getIdentifier(spec.mBitmapName, "drawable", context.packageName)
         mBitmap = BitmapFactory.decodeResource(context.resources, resID)
-        mBitmap = Bitmap.createScaledBitmap(mBitmap, screenSize.x.toInt(), screenSize.y.toInt(), false)
-        mBitmap?.let {
+        mBitmap?.let {letBitmap->
+            mBitmap = Bitmap.createScaledBitmap(letBitmap, screenSize.x.toInt(), screenSize.y.toInt(), false)
             val matrix = Matrix()
             matrix.setScale(-1f, 1f)
-            mBitmapReversed = Bitmap.createBitmap(mBitmap,0,0,it.width, it.height, matrix, true)
+            mBitmapReversed = Bitmap.createBitmap(letBitmap,0,0,letBitmap.width, letBitmap.height, matrix, true)
         }
     }
 

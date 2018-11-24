@@ -19,12 +19,12 @@ class PlayerInputComponent(gameEngine: GameEngine) : InputComponent, InputObserv
     }
 
     override fun handleInput(event: MotionEvent?, gameState: GameState, controls: List<Rect>) {
-        event?.let {
+        event?.let { letEvent ->
             mTransform?.let {letTransform ->
-                val x = event.getX(event.actionIndex).toInt()
-                val y = event?.getY(event.actionIndex).toInt()
+                val x = letEvent.getX(letEvent.actionIndex).toInt()
+                val y = letEvent.getY(letEvent.actionIndex).toInt()
 
-                when(event.action and MotionEvent.ACTION_MASK){
+                when(letEvent.action and MotionEvent.ACTION_MASK){
                     MotionEvent.ACTION_UP -> {
                         if(controls[HUD.UP].contains(x,y) || controls[HUD.DOWN].contains(x,y)){
                             letTransform.stopVertical()

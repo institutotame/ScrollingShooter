@@ -2,6 +2,7 @@ package com.atinem.scrollingshooter
 
 import android.content.Context
 import android.graphics.PointF
+import com.atinem.scrollingshooter.components.*
 import com.atinem.scrollingshooter.specs.ObjectSpec
 
 class GameObjectFactory(val context : Context, val screenSize: PointF, val gameEngine: GameEngine) {
@@ -19,7 +20,19 @@ class GameObjectFactory(val context : Context, val screenSize: PointF, val gameE
         gameObject.mTransform = Transform(speed,objectSize.x,objectSize.y,location,screenSize)
 
 
-        //TODO Page 562
+        for(i in 0 until numComponents){
+            when(spec.mComponents[i]){
+                "PlayerInputComponent" -> gameObject.setInput(PlayerInputComponent(gameEngine))
+                "StdGraphicsComponent" -> gameObject.setGraphics(StdGraphicsComponent(), context, spec, objectSize)
+                "PlayerMovementComponent" -> gameObject.movementComponent = PlayerMovementComponent()
+                "LaserMovementComponent" -> gameObject.movementComponent = LaserMovementComponent()
+                "PlayerSpawnComponent" -> gameObject.spawnComponent = PlayerSpawnComponent()
+                "LaserSpawnComponent" -> gameObject.spawnComponent = LaserSpawnComponent()
+                "BackgroundGraphicsComponent" -> gameObject.setGraphics(BackgroundGraphicsComponent(), context,spec,objectSize)
+                "BackgroundMovementComponent" -> gameObject.movementComponent = BackgroundMovementComponent()
+                "BackgroundSpawnComponent" -> gameObject.spawnComponent = BackgroundSpawnComponent()
+            }
+        }
         return gameObject
     }
 }
