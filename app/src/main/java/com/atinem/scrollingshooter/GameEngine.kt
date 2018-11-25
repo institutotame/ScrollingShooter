@@ -3,12 +3,12 @@ package com.atinem.scrollingshooter
 import android.content.Context
 import android.graphics.Point
 import android.graphics.PointF
-import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceView
 import com.atinem.scrollingshooter.components.AlienLaserSpawner
 import com.atinem.scrollingshooter.components.PlayerLaserSpawner
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -94,6 +94,10 @@ class GameEngine(context: Context, size: Point) : SurfaceView(context), GameStar
         objects[Level.PLAYER_INDEX].spawn(objects[Level.PLAYER_INDEX].mTransform)
 
         objects[Level.BACKGROUND_INDEX].spawn(objects[Level.PLAYER_INDEX].mTransform)
+
+        for(i in Level.FIRST_ALIEN..Level.LAST_ALIEN){
+            objects[i].spawn(objects[Level.PLAYER_INDEX].mTransform)
+        }
     }
 
     override fun addObserver(observer: InputObserver) {

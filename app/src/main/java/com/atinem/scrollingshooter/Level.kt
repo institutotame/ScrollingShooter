@@ -2,9 +2,7 @@ package com.atinem.scrollingshooter
 
 import android.content.Context
 import android.graphics.PointF
-import com.atinem.scrollingshooter.specs.BackgroundSpec
-import com.atinem.scrollingshooter.specs.PlayerLaserSpec
-import com.atinem.scrollingshooter.specs.PlayerSpec
+import com.atinem.scrollingshooter.specs.*
 
 class Level(context: Context, screenSize: PointF, gameEngine: GameEngine) {
     companion object {
@@ -44,8 +42,19 @@ class Level(context: Context, screenSize: PointF, gameEngine: GameEngine) {
         mNextPlayerLaser = FIRST_PLAYER_LASER
 
         // Create some aliens
+        objects.add(FIRST_ALIEN, factory.create(AlienChaseSpec()))
+        objects.add(SECOND_ALIEN, factory.create(AlienPatrolSpec()))
+        objects.add(THIRD_ALIEN, factory.create(AlienPatrolSpec()))
+        objects.add(FOURTH_ALIEN, factory.create(AlienChaseSpec()))
+        objects.add(FIFTH_ALIEN, factory.create(AlienDiverSpec()))
+        objects.add(SIXTH_ALIEN, factory.create(AlienDiverSpec()))
+
 
         // Create some aliens lasers
+        for(i in FIRST_ALIEN_LASER..LAST_ALIEN_LASER){
+            objects.add(i,factory.create(AlienLaserSpec()))
+        }
+        mNextAlienLaser = FIRST_ALIEN_LASER
 
         return objects
     }

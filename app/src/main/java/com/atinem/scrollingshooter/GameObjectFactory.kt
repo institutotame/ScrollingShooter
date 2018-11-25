@@ -31,6 +31,11 @@ class GameObjectFactory(val context : Context, val screenSize: PointF, val gameE
                 "BackgroundGraphicsComponent" -> gameObject.setGraphics(BackgroundGraphicsComponent(), context,spec,objectSize)
                 "BackgroundMovementComponent" -> gameObject.movementComponent = BackgroundMovementComponent()
                 "BackgroundSpawnComponent" -> gameObject.spawnComponent = BackgroundSpawnComponent()
+                "AlienChaseMovementComponent" -> gameObject.movementComponent = AlienChaseMovementComponent(gameEngine)
+                "AlienPatrolMovementComponent" -> gameObject.movementComponent = AlienPatrolMovementComponent(gameEngine)
+                "AlienDiverMovementComponent" -> gameObject.movementComponent = AlienDiverMovementComponent()
+                "AlienHorizontalSpawnComponent" -> gameObject.spawnComponent = AlienHorizontalSpawnComponent()
+                "AlienVerticalSpawnComponent" -> gameObject.spawnComponent = AlienVerticalSpawnComponent()
             }
         }
         return gameObject

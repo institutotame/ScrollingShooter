@@ -23,7 +23,7 @@ class BackgroundGraphicsComponent : GraphicsComponent {
 
     override fun draw(canvas: Canvas, paint: Paint, transform: Transform) {
         mBitmap?.let {
-            mBitmapReversed.let {bitmapReversed ->
+            mBitmapReversed?.let {bitmapReversed ->
                 val xClip = transform.mXCLip
                 val width = it.width
                 val height = it.height

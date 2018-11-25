@@ -11,6 +11,7 @@ class BackgroundMovementComponent : MovementComponent{
             transform.mXCLip = currentXClip
         }else{
             currentXClip += (transform.mSpeed / fps).toInt()
+            transform.mXCLip = currentXClip
         }
 
         if(currentXClip >= transform.getSize().x){
